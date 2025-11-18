@@ -1,8 +1,6 @@
- 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
- 
 
 interface AttendanceRecord {
   _id: string;
@@ -86,7 +84,6 @@ export function AdminDashboard() {
               </thead>
               <tbody>
                 {data.map((row) => {
-                   
                   return (
                     <tr key={row._id}>
                       <td>{row._id}</td>

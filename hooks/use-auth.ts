@@ -3,7 +3,7 @@
 import useSWR, { mutate as globalMutate } from "swr";
 import { getItem, setItem, removeItem } from "@/lib/storage";
 
-export type User = { id: string; name: string; role: 'admin' | 'employee' };
+export type User = { id: string; name: string; role: "admin" | "employee" };
 
 const USER_KEY = "ems.currentUser";
 

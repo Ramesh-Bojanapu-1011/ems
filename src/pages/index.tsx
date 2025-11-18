@@ -47,7 +47,7 @@ export default function Home() {
                 <LoginForm />
               </CardContent>
             </Card>
-          ) : user.role === 'admin' ? (
+          ) : user.role === "admin" ? (
             <AdminDashboard />
           ) : (
             <EmployeeDashboard />

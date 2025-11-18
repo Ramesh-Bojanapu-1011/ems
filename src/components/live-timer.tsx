@@ -17,13 +17,15 @@ type LiveTimerProps = {
   size?: "sm" | "md";
 };
 
-export function LiveTimer({
-  // start,
-  // // baseMs = 0,
-  // running = true,
-  // label = "Active",
-  // size = "md",
-}: LiveTimerProps) {
+export function LiveTimer(
+  {
+    // start,
+    // // baseMs = 0,
+    // running = true,
+    // label = "Active",
+    // size = "md",
+  }: LiveTimerProps,
+) {
   // const now = useTick({ intervalMs: 1000, paused: !running });
   // const startMs = React.useMemo(() => toMs(start), [start]);
   // const liveMs = running ? Math.max(0, now - startMs) : 0;
@@ -32,7 +34,8 @@ export function LiveTimer({
   // const chipSize =
   //   size === "sm" ? "text-xs px-2 py-1 gap-1" : "text-sm px-3 py-1.5 gap-1.5";
 
-  return (<></>
+  return (
+    <></>
     // <div
     //   role="status"
     //   aria-live="polite"

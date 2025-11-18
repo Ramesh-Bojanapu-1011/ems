@@ -20,7 +20,11 @@ function LoginForm() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
-  await login({ id: employeeId.trim(), name: name.trim(), role: role as 'employee' | 'admin' });
+    await login({
+      id: employeeId.trim(),
+      name: name.trim(),
+      role: role as "employee" | "admin",
+    });
   };
 
   return (

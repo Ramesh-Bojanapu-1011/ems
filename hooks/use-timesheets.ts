@@ -1,6 +1,9 @@
 import useSWR, { mutate as globalMutate } from "swr";
 import { isSameLocalDay, diffMinutes } from "@/lib/time";
-import { getCurrentLocation, type GeoPoint } from "@/lib/location";
+import {
+  getCurrentLocationWithGoodAccuracy,
+  type GeoPoint,
+} from "@/lib/location";
 
 export type TimeEntry = {
   id: string;
@@ -11,7 +14,6 @@ export type TimeEntry = {
   clockInLocation?: GeoPoint;
   clockOutLocation?: GeoPoint;
 };
-
 
 const fetcher = async (key: string) => {
   // key structure: ems.timesheets:<userId>
@@ -31,11 +33,11 @@ export function useTimesheets(userId?: string) {
   const save = async (next: TimeEntry[]) => {
     if (!userId) return;
     // Save all entries for the user to MongoDB (replace all for simplicity)
-    await fetch('/api/store', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    await fetch("/api/store", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        collection: 'timesheets',
+        collection: "timesheets",
         data: { userId, entries: next },
       }),
     });
@@ -48,7 +50,7 @@ export function useTimesheets(userId?: string) {
     const active = entries.find((e) => !e.clockOut);
     if (active) return; // already clocked in
 
-    const loc = await getCurrentLocation();
+    const loc = await getCurrentLocationWithGoodAccuracy();
 
     const newEntry: TimeEntry = {
       id: crypto.randomUUID(),
@@ -66,7 +68,7 @@ export function useTimesheets(userId?: string) {
     const idx = entries.findIndex((e) => !e.clockOut);
     if (idx === -1) return;
 
-    const loc = await getCurrentLocation();
+    const loc = await getCurrentLocationWithGoodAccuracy();
 
     const next = [...entries];
     next[idx] = { ...next[idx], clockOut: now, clockOutLocation: loc };
