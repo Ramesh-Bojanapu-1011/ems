@@ -12,6 +12,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTimesheets } from "../../hooks/use-timesheets";
 import { useAuth } from "../../hooks/use-auth";
+import Link from "next/link";
 
 export function TimesheetTable() {
   const { user } = useAuth();
@@ -34,6 +35,9 @@ export function TimesheetTable() {
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
+          <Link href="/locationpage" className=" ">
+            get location
+          </Link>
           <Table>
             <TableHeader>
               <TableRow>
@@ -58,17 +62,25 @@ export function TimesheetTable() {
                 todaysEntries.map((e) => {
                   const dur = diffSeconds(e.clockIn, e.clockOut);
                   const inLoc = e.clockInLocation
-                    ? `${e.clockInLocation.lat.toFixed(5)}, ${e.clockInLocation.lng.toFixed(5)}`
+                    ? `${e.clockInLocation.lat.toFixed(
+                        5,
+                      )}, ${e.clockInLocation.lng.toFixed(5)}`
                     : null;
                   const outLoc = e.clockOutLocation
-                    ? `${e.clockOutLocation.lat.toFixed(5)}, ${e.clockOutLocation.lng.toFixed(5)}`
+                    ? `${e.clockOutLocation.lat.toFixed(
+                        5,
+                      )}, ${e.clockOutLocation.lng.toFixed(5)}`
                     : null;
 
                   const inHref = inLoc
-                    ? `https://www.google.com/maps?q=${e.clockInLocation!.lat},${e.clockInLocation!.lng}`
+                    ? `https://www.google.com/maps?q=${
+                        e.clockInLocation!.lat
+                      },${e.clockInLocation!.lng}`
                     : null;
                   const outHref = outLoc
-                    ? `https://www.google.com/maps?q=${e.clockOutLocation!.lat},${e.clockOutLocation!.lng}`
+                    ? `https://www.google.com/maps?q=${
+                        e.clockOutLocation!.lat
+                      },${e.clockOutLocation!.lng}`
                     : null;
 
                   return (
