@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export type GeoPoint = { lat: number; lng: number; accuracy?: number };
+export type GeoPoint = {
+  lat: number;
+  lng: number;
+  accuracy?: number;
+  landmark?: string;
+};
 
 // Reverse Geocoding (OpenStreetMap)
 async function getLandmark(lat: number, lng: number) {
@@ -33,6 +38,7 @@ export async function getCurrentLocationWithGoodAccuracy(): Promise<
             lat: latitude,
             lng: longitude,
             accuracy,
+            landmark,
           });
         },
         (err) => {

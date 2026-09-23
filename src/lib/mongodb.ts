@@ -1,28 +1,21 @@
 import { MongoClient } from "mongodb";
 
 const uri =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://bramesh1011_db_user:TnDJ6ojpLBD1yM10@cluster0.op1xcuz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-let client;
+  "mongodb+srv://bramesh1011_db_user:LovelyRam1011@cluster0.op1xcuz.mongodb.net/?appName=Cluster0";
+const options = {};
+
+let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-declare global {
-  var _mongoClientPromise: Promise<MongoClient> | undefined;
-}
-
-if (!uri) {
-  throw new Error("Please add your MongoDB URI to .env.local");
-}
-
-if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise!;
-} else {
-  client = new MongoClient(uri);
+try {
+  client = new MongoClient(uri, options);
   clientPromise = client.connect();
+  clientPromise
+    .then((data) => data.db())
+    .then((db) => console.log("Connected to MongoDB:", db.databaseName));
+} catch (error) {
+  console.error("Failed to connect to MongoDB:", error);
+  throw error;
 }
 
 export default clientPromise;
